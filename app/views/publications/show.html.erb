@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+
 <p>
   <strong>Author:</strong>
   <%= @publication.author %>
@@ -12,7 +13,41 @@
 
 <p>
   <strong>Body:</strong>
-  <%= @publication.body %>
+  <%=  @publication.body %>
 </p>
 
-<%= link_to 'Back', publications_path %>
+<table class = "table table-condensed">
+  <thead>
+    <tr>
+      <th>Commenter</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @publication.comments.each do |comment| %>
+      <tr>
+        <td><%= comment.commenter %></td>
+        <td><%= comment.body %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<h2>Add a comment:</h2>
+<%= form_for([@publication, @publication.comments.build]) do |f| %>
+  <p>
+    <%= f.label :commenter %><br>
+    <%= f.text_field :commenter %>
+  </p>
+  <p>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', publications_path, class: 'btn btn-default' %>
