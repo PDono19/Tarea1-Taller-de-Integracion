@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
     redirect_to publication_path(@publication)
   end
 
+
   private
     def comment_params
       params.require(:comment).permit(:commenter, :body)
